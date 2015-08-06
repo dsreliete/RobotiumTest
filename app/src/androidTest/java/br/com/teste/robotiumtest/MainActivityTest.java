@@ -61,12 +61,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         solo.waitForText("Settings touched");
     }
 
-    public void testFragment(String TAG) {
-        Fragment f = getActivity().getSupportFragmentManager().findFragmentByTag(TAG);
+    public void testFragment(String tag) {
+        Fragment f = getActivity().getSupportFragmentManager().findFragmentByTag(tag);
         assertNotNull("Frag is null", f);
     }
-
-
-
-
 }
