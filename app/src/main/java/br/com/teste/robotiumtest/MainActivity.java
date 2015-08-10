@@ -7,12 +7,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -136,12 +137,29 @@ public class MainActivity extends ActionBarActivity
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-            Log.i("Eliete", "FragTag = " + getTag());
-
             Bundle args = getArguments();
             int section = args.getInt(ARG_SECTION_NUMBER);
-            if (section == 4){
-                Toast.makeText(getActivity(), "Settings touched", Toast.LENGTH_SHORT).show();
+
+            TextView sectionLabel = (TextView) rootView.findViewById(R.id.section_label);
+            sectionLabel.setText("Fragment " + section);
+
+            switch (section){
+                case 1:
+                    Button button = (Button) rootView.findViewById(R.id.button);
+                    button.setVisibility(View.VISIBLE);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container, PlaceholderFragment.newInstance(3), "Section " + 3)
+                                    .commit();
+                        }
+                    });
+                    break;
+                case 4:
+                    Toast.makeText(getActivity(), "Settings touched", Toast.LENGTH_SHORT).show();
+                    break;
+
             }
 
             return rootView;
